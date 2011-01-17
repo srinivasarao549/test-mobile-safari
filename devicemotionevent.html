@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test DeviceMotionEvent Class</title>
+    <meta name="author" content="42loops" >
+  </head>
+  <body>
+      <div id="c">No DeviceMotionEvent...</div>
+      <script>
+function $(id) {
+    return document.getElementById(id);
+}
+
+function log(id, str) {
+    $(id).innerHTML = str;
+}
+
+function onReady(evt) {
+    document.removeEventListener("DOMContentLoaded", this);
+
+    function logMotion(evt) {
+        var str = "DeviceMotionEvent <br>";
+
+        if (evt.interval) {
+            str += " interval: " + evt.interval + " <br>";
+        }
+        else {
+            str += "interval: not available<br>";
+        }
+        if(evt.accelerationIncludingGravity) {
+            str += " acc w G x: " + evt.accelerationIncludingGravity.x 
+                + " acc w G y: " + evt.accelerationIncludingGravity.y 
+                + " acc w G  z: " + evt.accelerationIncludingGravity.z + " <br>";
+        }
+        else {
+            str += "accelerationIncludingGravity not available<br>";
+        }
+        if (evt.acceleration) {
+            str += " acc x: " + evt.acceleration.x 
+                + " acc y: " + evt.acceleration.y 
+                + " acc z: " + evt.acceleration.z + " <br>";
+        }
+        else {
+            str += "acceleration not available<br>"; 
+        }
+        if (evt.rotationRate) {
+            str += " rotationRate alpha : " + evt.rotationRate.alpha 
+                + " rotationRate beta : " + evt.rotationRate.beta 
+                + " rotationRate gamma : " + evt.rotationRate.gamma        }
+        else {
+            str += "rotationRate not available<br>";
+        }
+        log('c', str);
+    }
+
+    // https://developer.apple.com/library/safari/#documentation/SafariDOMAdditions/Reference/DeviceMotionEventClassRef/DeviceMotionEvent/DeviceMotionEvent.html
+    window.addEventListener("devicemotion", logMotion);
+}
+
+document.addEventListener('DOMContentLoaded', onReady);
+      </script>
+  </body>
+</html>
